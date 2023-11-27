@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import Multibase from "./multibase";
 import { Multihash } from "./multihash";
 import { mkeyEd25519, cidTypeResolver, cidTypeRaw, mhashBlake3Default, CID_TYPES, REGISTRY_TYPES } from "./constants";

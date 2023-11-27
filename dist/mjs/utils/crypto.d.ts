@@ -92,17 +92,6 @@ export declare class CryptoImplementation {
         seed: Uint8Array;
     }): Promise<KeyPairEd25519>;
     /**
-     * Derives an Ed25519 key pair from a master key and a data seed.
-     * @param masterKey - The master key as a Uint8Array or string.
-     * @param dataSeed - The data seed as a Uint8Array or string.
-     * @param deriveLength - (Optional) The length of the derived key in bytes.
-     * @returns A Promise that resolves to an object containing the derived Ed25519 key pair with publicKey and privateKey.
-     */
-    deriveEd25519(masterKey: Uint8Array | string, dataSeed: Uint8Array | string, deriveLength?: number): Promise<{
-        privateKey: string;
-        publicKey: string;
-    }>;
-    /**
      * Encrypts plaintext using XChaCha20-Poly1305.
      * @param key The encryption key.
      * @param nonce The nonce.
@@ -127,76 +116,6 @@ export declare class CryptoImplementation {
         ciphertext: Buffer;
     }): Promise<Buffer>;
 }
-/**
- * Define the KeyPairAndSeed type.
- */
-export interface KeyPairAndSeed {
-    privateKey: string;
-    publicKey: string;
-    publicKeyRaw: string;
-    seed: string;
-}
-/**
- * Generates a key pair and seed for cryptographic purposes.
- * @param length - The length of the seed (default: 32).
- * @returns An object containing the generated key pair and seed.
- */
-export declare function genKeyPairAndSeed(length?: number): Promise<KeyPairAndSeed>;
-/**
- * Define the KeyPair interface.
- */
-export interface KeyPair {
-    privateKey: string;
-    publicKey: string;
-    publicKeyRaw: string;
-}
-/**
- * Generates a key pair from a given seed using libsodium-wrappers.
- * @param seed - The seed as a string.
- * @returns A Promise that resolves to an object containing the generated public and private keys as hexadecimal strings.
- */
-export declare function genKeyPairFromSeed(seed2: string): Promise<KeyPair>;
-/**
- * The length of the Blake3 hash in bytes.
- */
-export declare const HASH_LENGTH = 32;
-/**
- * Hashes multiple Uint8Array inputs using Blake3 and returns the result.
- * @param {...Uint8Array} args - The Uint8Array inputs to hash.
- * @returns {blake3.Hasher} A new Blake3 hash instance.
- */
-export declare function hashAll(...args: Uint8Array[]): Promise<Uint8Array>;
-/**
- * Derives a child seed from a master seed and a tweak seed using Blake3 hash function.
- * @param masterSeed - The master seed as a Uint8Array.
- * @param tweakSeed - The tweak seed as a string.
- * @returns A promise that resolves to the derived seed as a Uint8Array.
- */
-export declare function deriveChildSeed(masterSeed: Uint8Array, tweakSeed: string): Promise<Uint8Array>;
-/**
- * Derives an Ed25519 key pair from a master key and a data seed.
- * @param masterKey - The master key as a Uint8Array or string.
- * @param dataSeed - The data seed as a Uint8Array or string.
- * @param deriveLength - (Optional) The length of the derived key in bytes.
- * @returns A Promise that resolves to an object containing the derived Ed25519 key pair with publicKey and privateKey.
- */
-export declare function deriveEd25519(masterKey: Uint8Array | string, dataSeed: Uint8Array | string, deriveLength?: number): Promise<{
-    privateKey: string;
-    publicKey: string;
-}>;
-/**
- * Derive a data key from a master key and data seed.
- * @param masterKey - The master key as a Uint8Array or string.
- * @param dataSeed - The data seed as a Uint8Array or string.
- * @param deriveLength - The length of the derived key (optional).
- * @returns A Promise that resolves to the derived key as a string.
- */
-export declare function getDataKey(masterKey: Uint8Array | string, dataSeed: Uint8Array | string, deriveLength?: number): Promise<string>;
-/**
- * Generates random bytes using libsodium.
- * @returns A Promise that resolves to a Uint8Array of random bytes.
- */
-export declare function testgen1(): Promise<Uint8Array>;
 /**
  * Derives the path key for a given path.
  * @param path - The path to derive the key for.

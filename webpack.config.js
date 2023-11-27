@@ -34,7 +34,7 @@ module.exports = {
     // The filename needs to match the index.web.d.ts declarations file.
     filename: "s5-crypto-utils.js",
     library: {
-      name: 's5-crypto-utils',
+      name: 's5CryptoUtils',
       type: 'umd',
     },
     globalObject: 'this',

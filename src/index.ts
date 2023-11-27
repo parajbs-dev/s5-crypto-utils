@@ -5,17 +5,6 @@ import Multibase from "./utils/multibase";
 
 // Main exports.
 
-// avatar exports.
-export {
-  avatarGenKey,
-  generateS5Avatar,
-} from "./utils/avatar";
-
-// avatar type exports.
-export type {
-  S5AvatarOptions
-} from "./utils/avatar";
-
 // bytes exports.
 export {
   equalBytes,
@@ -42,21 +31,8 @@ export {
 export {
   KeyPairEd25519,
   CryptoImplementation,
-  genKeyPairAndSeed,
-  genKeyPairFromSeed,
-  HASH_LENGTH,
-  hashAll,
-  deriveChildSeed,
-  deriveEd25519,
-  getDataKey,
   _derivePathKeyForPath,
   deriveKeyForPathSegments,
-} from "./utils/crypto";
-
-// crypto type exports.
-export type {
-  KeyPairAndSeed,
-  KeyPair,
 } from "./utils/crypto";
 
 // derive_hash exports.
@@ -72,13 +48,6 @@ export {
   decodeEndianN,
   encodeEndianN,
 } from "./utils/endian";
-
-// gun-pk-auth exports.
-export {
-  genDeterministicKeyPair,
-  genDeterministicSEAPair,
-  gunAuth,
-} from "./utils/gun-pk-auth";
 
 // multibase exports.
 export { Multibase };
@@ -101,23 +70,8 @@ export {
   checkPaddedBlock,
 } from "./utils/padding";
 
-// seed exports.
+// tools exports.
 export {
-  SEED_LENGTH,
-  SEED_WORDS_LENGTH,
-  CHECKSUM_WORDS_LENGTH,
-  PHRASE_LENGTH,
-  generateSeedFromPhrase,
-  generatePhrase,
-  sanitizePhrase,
-  validatePhrase,
-  generateChecksumWordsFromSeedWords,
-  hashToChecksumWords,
-  seedWordsToSeed,
-} from "./utils/seed";
-
-// wordlist exports.
-export {
-  uniquePrefixLen,
-  wordlist,
-} from "./utils/wordlist";
+  encodeBase58BTC,
+  encodeBase64URL,
+} from "./utils/tools";
