@@ -9,7 +9,4 @@ export { deriveHashBlake3, deriveHashBlake3Int, } from "./derive_hash";
 export { decodeEndian, encodeEndian, decodeEndianN, encodeEndianN, } from "./endian";
 export { Multibase };
 export { Multihash } from "./multihash";
-export { encryptionKeyLength, encryptionNonceLength, encryptionOverheadLength, encryptMutableBytes, decryptMutableBytes, } from "./mutable";
-export { padFileSizeDefault, checkPaddedBlock, } from "./padding";
-export { encodeBase58BTC, encodeBase64URL, } from "./tools";
 //# sourceMappingURL=index.d.ts.map

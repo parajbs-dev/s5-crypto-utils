@@ -1,4 +1,3 @@
-import { Buffer } from "buffer";
 /**
  * Decode little-endian bytes to a number.
  * @param bytes An array of bytes in little-endian order.
@@ -45,7 +44,6 @@ export function decodeEndianN(bytes) {
  */
 export function encodeEndianN(value1, length) {
     const res = new Uint8Array(length);
-    const buffer = Buffer.alloc(length);
     let lastIndex = length - 1;
     let value = BigInt(value1);
     for (let i = 0; i <= lastIndex; i++) {
@@ -55,7 +53,6 @@ export function encodeEndianN(value1, length) {
             break;
         }
         res[i] = Number(value & 0xffn);
-        buffer[i] = Number(value & 0xffn);
         value = value >> 8n;
     }
     return res;

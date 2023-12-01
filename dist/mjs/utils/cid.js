@@ -4,7 +4,7 @@ import { Multihash } from "./multihash";
 import { mkeyEd25519, cidTypeResolver, cidTypeRaw, mhashBlake3Default, CID_TYPES, REGISTRY_TYPES } from "./constants";
 import { decodeEndian, encodeEndian } from "./endian";
 import { concatBytes, equalBytes, hexToBytes } from "./bytes";
-import { encodeBase58BTC } from "./tools";
+import { encodeBase58BTC } from "./basetools";
 /**
  * Class representing a CID (Content Identifier).
  */
@@ -233,5 +233,5 @@ export function encodeCid(hash, size, type = cidTypeRaw, hashType = mhashBlake3D
     else {
         prefixedHash = Uint8Array.from([type, hashType, ...hash, ...sizeBytes]);
     }
-    return encodeBase58BTC(Buffer.from(prefixedHash));
+    return encodeBase58BTC(prefixedHash);
 }

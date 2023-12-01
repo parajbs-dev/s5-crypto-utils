@@ -54,24 +54,3 @@ export { Multibase };
 
 // multihash exports.
 export { Multihash } from "./utils/multihash";
-
-// mutable exports.
-export {
-  encryptionKeyLength,
-  encryptionNonceLength,
-  encryptionOverheadLength,
-  encryptMutableBytes,
-  decryptMutableBytes,
-} from "./utils/mutable";
-
-// padding exports.
-export {
-  padFileSizeDefault,
-  checkPaddedBlock,
-} from "./utils/padding";
-
-// tools exports.
-export {
-  encodeBase58BTC,
-  encodeBase64URL,
-} from "./utils/tools";

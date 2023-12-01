@@ -4,7 +4,6 @@
 import { Buffer } from "buffer";
 import * as sodium from 'libsodium-wrappers';
 import { blake3 } from "@noble/hashes/blake3";
-
 import { deriveHashBlake3Int, deriveHashBlake3 } from './derive_hash';
 import { mkeyEd25519 } from "./constants";
 
@@ -24,24 +23,26 @@ export class KeyPairEd25519 {
 
   /**
    * Gets the public key for this key pair.
-   * @returns {Uint8Array} The public key.
+   * @returns {Promise<Uint8Array>} The public key.
    */
-  public get publicKey(): Uint8Array {
-    return new Uint8Array([ ...Uint8Array.from([mkeyEd25519]), ...this.publicKeyRaw ]);
+  public async publicKey(): Promise<Uint8Array> {
+    await sodium.ready;
+    return new Uint8Array([...Array.from([mkeyEd25519]), ...Array.from(await this.publicKeyRaw())]);
   }
 
   /**
    * Gets the raw public key for this key pair.
-   * @returns {Uint8Array} The raw public key.
+   * @returns {Promise<Uint8Array>} The raw public key.
    */
-  public get publicKeyRaw(): Uint8Array {
+  public async publicKeyRaw(): Promise<Uint8Array> {
+    await sodium.ready;
     if (this._bytes.length === 64) {
       return sodium.crypto_sign_seed_keypair(this._bytes.slice(0, 32)).publicKey;
     } else {
       if (this._bytes.length === 32) {
         return sodium.crypto_sign_seed_keypair(this._bytes).publicKey;
       } else {
-        throw new Error(`ERROR: privateKey must 32 od 64 Uint8Array.`);
+        throw new Error(`ERROR: privateKey must be 32 or 64 Uint8Array.`);
       }
     }
   }
@@ -50,7 +51,7 @@ export class KeyPairEd25519 {
    * Extracts the bytes of this key pair.
    * @returns {Uint8Array} The bytes of the key pair.
    */
-  public extractBytes(): Uint8Array {
+  public async extractBytes(): Promise<Uint8Array> {
     return this._bytes;
   }
 }
@@ -141,7 +142,7 @@ export class CryptoImplementation {
   async signEd25519({ kp, message }: { kp: KeyPairEd25519, message: Uint8Array }): Promise<Uint8Array> {
     // Signs a message using Ed25519 private key
     await sodium.ready;
-    const signature = sodium.crypto_sign_detached(message, kp.extractBytes());
+    const signature = sodium.crypto_sign_detached(message, await kp.extractBytes());
     return signature;
   }
 

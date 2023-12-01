@@ -13,19 +13,19 @@ export declare class KeyPairEd25519 {
     constructor(bytes: Uint8Array);
     /**
      * Gets the public key for this key pair.
-     * @returns {Uint8Array} The public key.
+     * @returns {Promise<Uint8Array>} The public key.
      */
-    get publicKey(): Uint8Array;
+    publicKey(): Promise<Uint8Array>;
     /**
      * Gets the raw public key for this key pair.
-     * @returns {Uint8Array} The raw public key.
+     * @returns {Promise<Uint8Array>} The raw public key.
      */
-    get publicKeyRaw(): Uint8Array;
+    publicKeyRaw(): Promise<Uint8Array>;
     /**
      * Extracts the bytes of this key pair.
      * @returns {Uint8Array} The bytes of the key pair.
      */
-    extractBytes(): Uint8Array;
+    extractBytes(): Promise<Uint8Array>;
 }
 /**
  * Class representing a CryptoImplementation for cryptographic operations.

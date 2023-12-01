@@ -1,7 +1,13 @@
-import { base58btc } from "multiformats/bases/base58";
 import { bytesToHex, hexToBytes, utf8ToBytes } from "./bytes";
-import { base32 } from "multiformats/bases/base32";
-import { base64, base64url } from "multiformats/bases/base64";
+
+import {
+  encodeBase58BTC,
+  decodeBase58BTC,
+  encodeBase32RFC,
+  decodeBase32RFC,
+  encodeBase64URL,
+  decodeBase64URL,
+} from "./basetools";
 
 /**
  * Multibase is an abstract class for encoding and decoding data using various encoding schemes.
@@ -21,7 +27,7 @@ export default abstract class Multibase {
   static decodeString(data: string): Uint8Array {
     let bytes: Uint8Array;
     if (data[0] === "z") {
-      bytes = base58btc.decode(data);
+      bytes = decodeBase58BTC(data.slice(1));
     } else if (data[0] === "f") {
       bytes = Uint8Array.from(hexToBytes(data.substring(1)));
     } else if (data[0] === "b") {
@@ -29,13 +35,13 @@ export default abstract class Multibase {
       while (str.length % 4 !== 0) {
         str += "=";
       }
-      bytes = base32.decode(str);
+      bytes = decodeBase32RFC(str);
     } else if (data[0] === "u") {
       let str = data.substring(1);
       while (str.length % 4 !== 0) {
         str += "=";
       }
-      bytes = base64url.decode(str);
+      bytes = decodeBase64URL(str);
     } else if (data[0] === ":") {
       bytes = utf8ToBytes(data);
     } else {
@@ -58,7 +64,7 @@ export default abstract class Multibase {
    * @returns The base32 string.
    */
   toBase32(): string {
-    return `b${base32.encode(this.toBytes()).replace(/=/g, "").toLowerCase()}`;
+    return `b${encodeBase32RFC(this.toBytes()).replace(/=/g, "").toLowerCase()}`;
   }
 
   /**
@@ -66,7 +72,7 @@ export default abstract class Multibase {
    * @returns The base64url string.
    */
   toBase64Url(): string {
-    return `u${base64.encode(this.toBytes())}`;
+    return `u${encodeBase64URL(this.toBytes())}`;
   }
 
   /**
@@ -74,7 +80,7 @@ export default abstract class Multibase {
    * @returns The base58 string.
    */
   toBase58(): string {
-    return base58btc.encode(this.toBytes());
+    return 'z' + encodeBase58BTC(this.toBytes());
   }
 
   /**

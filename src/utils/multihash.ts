@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { base64url } from "multiformats/bases/base64";
-import { base32 } from "multiformats/bases/base32";
 import { equalBytes } from "./bytes";
 import { CID_TYPES } from "./constants";
+
+import {
+  encodeBase32RFC,
+  encodeBase64URL,
+  decodeBase64URL,
+} from "./basetools";
 
 /**
  * Represents a Multihash.
@@ -43,7 +47,7 @@ export class Multihash {
     while (hash.length % 4 !== 0) {
       hash += "=";
     }
-    const bytes = base64url.decode(hash);
+    const bytes = decodeBase64URL(hash);
     return new Multihash(new Uint8Array(bytes));
   }
 
@@ -52,7 +56,7 @@ export class Multihash {
    * @returns The base64 URL-encoded hash string.
    */
   toBase64Url(): string {
-    return base64url.encode(this.fullBytes);
+    return encodeBase64URL(this.fullBytes);
   }
 
   /**
@@ -60,7 +64,7 @@ export class Multihash {
    * @returns The base32-encoded hash string.
    */
   toBase32(): string {
-    return base32.encode(this.fullBytes).replace(/=/g, "").toLowerCase();
+    return encodeBase32RFC(this.fullBytes).replace(/=/g, "").toLowerCase();
   }
 
   /**
